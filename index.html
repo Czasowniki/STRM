@@ -101,8 +101,8 @@
         shadow-intensity="1" shadow-softness="1"
         exposure="1.6" environment-intensity="1.8"
         autoplay
-        camera-orbit="180deg 75deg 180%" 
-        camera-target="0m 0.25m 0m"
+        camera-orbit="180deg 75deg 145%" 
+        camera-target="0m 0.3m 0m"
         min-camera-orbit="auto auto 80%" 
         max-camera-orbit="auto auto 600%"
         loading="eager" interaction-prompt="none">
@@ -113,10 +113,10 @@
         const mv = getEl('clock-model');
 
         const CONFIG = {
-            mobileOrbit: "180deg 75deg 160%",
-            desktopOrbit: "180deg 75deg 180%",
-            mobileTarget: "0m 0.3m 0m",
-            desktopTarget: "0m 0.25m 0m"
+            mobileOrbit: "180deg 75deg 130%",
+            desktopOrbit: "180deg 75deg 145%",
+            mobileTarget: "0m 0.35m 0m",
+            desktopTarget: "0m 0.3m 0m"
         };
 
         getEl('reset-view').onclick = () => {
@@ -126,8 +126,10 @@
         };
 
         const togglePanel = (showId, hideId) => {
-            getEl(hideId).classList.remove('visible');
-            getEl(showId).classList.toggle('visible');
+            const show = getEl(showId);
+            const hide = getEl(hideId);
+            if (hide) hide.classList.remove('visible');
+            if (show) show.classList.toggle('visible');
         };
 
         getEl('toggle-strm').onclick = () => togglePanel('panel-strm', 'panel-czasowniki');
