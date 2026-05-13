@@ -101,9 +101,9 @@
         shadow-intensity="1" shadow-softness="1"
         exposure="1.6" environment-intensity="1.8"
         autoplay
-        camera-orbit="180deg 75deg 95%" 
-        camera-target="0m 0.25m 0m"
-        min-camera-orbit="auto auto 40%" 
+        camera-orbit="180deg 75deg 80%" 
+        camera-target="0m 0.15m 0m"
+        min-camera-orbit="auto auto 30%" 
         max-camera-orbit="auto auto 600%"
         loading="eager" interaction-prompt="none">
     </model-viewer>
@@ -113,16 +113,15 @@
         const mv = getEl('clock-model');
 
         const CONFIG = {
-            mobileOrbit: "180deg 75deg 90%",
-            desktopOrbit: "180deg 75deg 95%",
-            mobileTarget: "0m 0.3m 0m",
-            desktopTarget: "0m 0.25m 0m"
+            mobileOrbit: "180deg 75deg 65%",
+            desktopOrbit: "180deg 75deg 70%",
+            mobileTarget: "0m 0.18m 0m",
+            desktopTarget: "0m 0.15m 0m"
         };
 
         getEl('reset-view').onclick = () => {
-            const isMob = window.innerWidth < 768;
-            mv.cameraOrbit = isMob ? CONFIG.mobileOrbit : CONFIG.desktopOrbit;
-            mv.cameraTarget = isMob ? CONFIG.mobileTarget : CONFIG.desktopTarget;
+            mv.cameraOrbit = (window.innerWidth < 768) ? CONFIG.mobileOrbit : CONFIG.desktopOrbit;
+            mv.cameraTarget = (window.innerWidth < 768) ? CONFIG.mobileTarget : CONFIG.desktopTarget;
         };
 
         const togglePanel = (showId, hideId) => {
