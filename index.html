@@ -72,9 +72,7 @@
 
     <button class="ui-element brand-btn brand-czasowniki" id="toggle-czasowniki">CZASOWNIKI</button>
     <div id="panel-czasowniki" class="info-panel">
-        Obiekty kinetyczne badające granicę<br>
-        między precyzyjną inżynierią,<br>
-        a wizualnym absurdem.
+        Obiekty kinetyczne badające granicę<br>między precyzyjną inżynierią,<br>a wizualnym absurdem.
     </div>
 
     <button class="ui-element icon-btn btn-theme" id="theme-toggle">
@@ -103,9 +101,9 @@
         shadow-intensity="1" shadow-softness="1"
         exposure="1.6" environment-intensity="1.8"
         autoplay
-        camera-orbit="180deg 75deg 220%" 
-        camera-target="0m 0.18m 0m"
-        min-camera-orbit="auto auto 120%" 
+        camera-orbit="180deg 75deg 180%" 
+        camera-target="0m 0.25m 0m"
+        min-camera-orbit="auto auto 80%" 
         max-camera-orbit="auto auto 600%"
         loading="eager" interaction-prompt="none">
     </model-viewer>
@@ -115,10 +113,10 @@
         const mv = getEl('clock-model');
 
         const CONFIG = {
-            mobileOrbit: "180deg 75deg 200%",
-            desktopOrbit: "180deg 75deg 220%",
-            mobileTarget: "0m 0.2m 0m",
-            desktopTarget: "0m 0.18m 0m"
+            mobileOrbit: "180deg 75deg 160%",
+            desktopOrbit: "180deg 75deg 180%",
+            mobileTarget: "0m 0.3m 0m",
+            desktopTarget: "0m 0.25m 0m"
         };
 
         getEl('reset-view').onclick = () => {
@@ -129,3 +127,46 @@
 
         const togglePanel = (showId, hideId) => {
             getEl(hideId).classList.remove('visible');
+            getEl(showId).classList.toggle('visible');
+        };
+
+        getEl('toggle-strm').onclick = () => togglePanel('panel-strm', 'panel-czasowniki');
+        getEl('toggle-czasowniki').onclick = () => togglePanel('panel-czasowniki', 'panel-strm');
+
+        getEl('theme-toggle').onclick = () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            mv.exposure = isDark ? "1.6" : "2.8";
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#121212' : '#ffffff');
+        };
+
+        const pauseBtn = getEl('pause-toggle');
+        pauseBtn.onclick = () => {
+            const isP = pauseBtn.dataset.paused === "true";
+            if (!isP) {
+                mv.pause();
+                getEl('icon-pause').style.display = 'none';
+                getEl('icon-play').style.display = 'block';
+                pauseBtn.dataset.paused = "true";
+            } else {
+                mv.play();
+                getEl('icon-pause').style.display = 'block';
+                getEl('icon-play').style.display = 'none';
+                pauseBtn.dataset.paused = "false";
+            }
+        };
+
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            getEl('ar-label').style.display = 'flex';
+            getEl('action-toggle').onclick = () => mv.activateAR();
+        } else {
+            getEl('fs-icon').style.display = 'block';
+            getEl('action-toggle').onclick = () => {
+                if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+                else document.exitFullscreen();
+            };
+        }
+    </script>
+</body>
+</html>
