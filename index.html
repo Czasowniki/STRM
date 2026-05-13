@@ -101,9 +101,9 @@
         shadow-intensity="1" shadow-softness="1"
         exposure="1.6" environment-intensity="1.8"
         autoplay
-        camera-orbit="180deg 75deg 90%" 
-        camera-target="0m 0.25m 0m"
-        min-camera-orbit="auto auto 30%" 
+        camera-orbit="180deg 75deg 150%" 
+        camera-target="0.05m 0.17m 0m"
+        min-camera-orbit="auto auto 40%" 
         max-camera-orbit="auto auto 600%"
         loading="eager" interaction-prompt="none">
     </model-viewer>
@@ -112,57 +112,6 @@
         const getEl = (id) => document.getElementById(id);
         const mv = getEl('clock-model');
 
-        const CONFIG = {
-            mobileOrbit: "180deg 75deg 65%",
-            desktopOrbit: "180deg 45deg 70%",
-            mobileTarget: "0m 0.28m 0m",
-            desktopTarget: "0m 0.25m 0m"
-        };
-
+        // Reset
         getEl('reset-view').onclick = () => {
-            mv.cameraOrbit = (window.innerWidth < 768) ? CONFIG.mobileOrbit : CONFIG.desktopOrbit;
-            mv.cameraTarget = (window.innerWidth < 768) ? CONFIG.mobileTarget : CONFIG.desktopTarget;
-        };
-
-        const togglePanel = (showId, hideId) => {
-            getEl(hideId).classList.remove('visible');
-            getEl(showId).classList.toggle('visible');
-        };
-
-        getEl('toggle-strm').onclick = () => togglePanel('panel-strm', 'panel-czasowniki');
-        getEl('toggle-czasowniki').onclick = () => togglePanel('panel-czasowniki', 'panel-strm');
-
-        getEl('theme-toggle').onclick = () => {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            mv.exposure = isDark ? "1.6" : "2.8";
-        };
-
-        const pauseBtn = getEl('pause-toggle');
-        pauseBtn.onclick = () => {
-            if (pauseBtn.dataset.paused !== "true") {
-                mv.pause();
-                getEl('icon-pause').style.display = 'none';
-                getEl('icon-play').style.display = 'block';
-                pauseBtn.dataset.paused = "true";
-            } else {
-                mv.play();
-                getEl('icon-pause').style.display = 'block';
-                getEl('icon-play').style.display = 'none';
-                pauseBtn.dataset.paused = "false";
-            }
-        };
-
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            getEl('ar-label').style.display = 'flex';
-            getEl('action-toggle').onclick = () => mv.activateAR();
-        } else {
-            getEl('fs-icon').style.display = 'block';
-            getEl('action-toggle').onclick = () => {
-                if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-                else document.exitFullscreen();
-            };
-        }
-    </script>
-</body>
-</html>
+            mv.cameraOrbit = "180deg 75deg 15
